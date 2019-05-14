@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.certiorem.librarymicroservicesproject.constants.BookPathConstants;
-import com.certiorem.librarymicroservicesproject.model.bookmodel.Book;
 import com.certiorem.librarymicroservicesproject.modelservice.BookService;
 
 @RestController
@@ -23,13 +22,13 @@ public class BookRestController {
 
 	@PostMapping(BookPathConstants.BOOK_SERVICE_SAVE)
 	@ResponseBody
-	public Book createBook(@RequestBody Book book) {
+	public Object createBook(@RequestBody Object book) {
 		return bookService.createUpdateBook(book);
 	}
 	
 	@GetMapping(BookPathConstants.BOOK_SERVICE_READ)
 	@ResponseBody
-	public Book getBookById(@RequestParam String id) {
+	public Object getBookById(@RequestParam String id) {
 		return bookService.getBook(Integer.parseInt(id));
 	}
 	
@@ -41,19 +40,19 @@ public class BookRestController {
 	
 	@GetMapping(BookPathConstants.BOOK_SERVICE_ALL_BOOKS)
 	@ResponseBody
-	public List<Book> getAllBooks() {
+	public List<Object> getAllBooks() {
 		return bookService.getAllBooks();
 	}
 	
 	@GetMapping(BookPathConstants.BOOK_SERVICE_GET_BY_EDITORIAL)
 	@ResponseBody
-	public List<Book> getBooksByEditorial(@RequestParam String editorialId) {
+	public List<Object> getBooksByEditorial(@RequestParam String editorialId) {
 		return bookService.getBooksByEditorialId(Integer.parseInt(editorialId));
 	}
 	
 	@GetMapping(BookPathConstants.BOOK_SERVICE_GET_BY_GENRE)
 	@ResponseBody
-	public List<Book> getBooksByGenre(@RequestParam String bookGenreId) {
+	public List<Object> getBooksByGenre(@RequestParam String bookGenreId) {
 		return bookService.getBooksByGenreId(Integer.parseInt(bookGenreId));
 	}
 	

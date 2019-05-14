@@ -12,16 +12,15 @@ import org.springframework.web.client.RestTemplate;
 
 import com.certiorem.librarymicroservicesproject.constants.BookPathConstants;
 import com.certiorem.librarymicroservicesproject.constants.DatabasePathConstants;
-import com.certiorem.librarymicroservicesproject.model.bookmodel.Book;
 import com.certiorem.librarymicroservicesproject.modelservice.BookService;
 
 @Service
 public class BookServiceImpl implements BookService {
 
 	@Override
-	public Book createUpdateBook(Book book) {
-		ResponseEntity<Book> responseEntity = new RestTemplate().postForEntity(
-				DatabasePathConstants.DATABASE_SERVICE_HOST + BookPathConstants.BOOK_SERVICE_SAVE, book, Book.class);
+	public Object createUpdateBook(Object book) {
+		ResponseEntity<Object> responseEntity = new RestTemplate().postForEntity(
+				DatabasePathConstants.DATABASE_SERVICE_HOST + BookPathConstants.BOOK_SERVICE_SAVE, book, Object.class);
 		return responseEntity.getBody();
 	}
 
@@ -35,45 +34,45 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public Book getBook(Integer bookId) {
+	public Object getBook(Integer bookId) {
 		Map<String, Integer> uriVariables = new HashMap<String, Integer>();
 		uriVariables.put(BookPathConstants.BOOK_SERVICE_ID_PARAM_NAME, bookId);
 
-		ResponseEntity<Book> responseEntity = new RestTemplate()
+		ResponseEntity<Object> responseEntity = new RestTemplate()
 				.getForEntity(DatabasePathConstants.DATABASE_SERVICE_HOST + BookPathConstants.BOOK_SERVICE_READ
-						+ BookPathConstants.BOOK_SERVICE_ID_PARAM, Book.class, uriVariables);
+						+ BookPathConstants.BOOK_SERVICE_ID_PARAM, Object.class, uriVariables);
 		return responseEntity.getBody();
 	}
 
 	@Override
-	public List<Book> getAllBooks() {
-		ResponseEntity<List<Book>> response = new RestTemplate().exchange(
+	public List<Object> getAllBooks() {
+		ResponseEntity<List<Object>> response = new RestTemplate().exchange(
 				DatabasePathConstants.DATABASE_SERVICE_HOST + BookPathConstants.BOOK_SERVICE_ALL_BOOKS, HttpMethod.GET,
-				null, new ParameterizedTypeReference<List<Book>>() {
+				null, new ParameterizedTypeReference<List<Object>>() {
 				});
 		return response.getBody();
 	}
 
 	@Override
-	public List<Book> getBooksByEditorialId(Integer editorialId) {
+	public List<Object> getBooksByEditorialId(Integer editorialId) {
 		Map<String, Integer> uriVariables = new HashMap<String, Integer>();
 		uriVariables.put(BookPathConstants.BOOK_SERVICE_EDITORIAL_ID_PARAM_NAME, editorialId);
-		ResponseEntity<List<Book>> response = new RestTemplate().exchange(
+		ResponseEntity<List<Object>> response = new RestTemplate().exchange(
 				DatabasePathConstants.DATABASE_SERVICE_HOST + BookPathConstants.BOOK_SERVICE_GET_BY_EDITORIAL
 						+ BookPathConstants.BOOK_SERVICE_EDITORIAL_ID_PARAM,
-				HttpMethod.GET, null, new ParameterizedTypeReference<List<Book>>() {
+				HttpMethod.GET, null, new ParameterizedTypeReference<List<Object>>() {
 				}, uriVariables);
 		return response.getBody();
 	}
 
 	@Override
-	public List<Book> getBooksByGenreId(Integer bookGenreId) {
+	public List<Object> getBooksByGenreId(Integer bookGenreId) {
 		Map<String, Integer> uriVariables = new HashMap<String, Integer>();
 		uriVariables.put(BookPathConstants.BOOK_SERVICE_GENRE_ID_PARAM_NAME, bookGenreId);
-		ResponseEntity<List<Book>> response = new RestTemplate().exchange(
+		ResponseEntity<List<Object>> response = new RestTemplate().exchange(
 				DatabasePathConstants.DATABASE_SERVICE_HOST + BookPathConstants.BOOK_SERVICE_GET_BY_GENRE
 						+ BookPathConstants.BOOK_SERVICE_GENRE_ID_PARAM,
-				HttpMethod.GET, null, new ParameterizedTypeReference<List<Book>>() {
+				HttpMethod.GET, null, new ParameterizedTypeReference<List<Object>>() {
 				}, uriVariables);
 		return response.getBody();
 	}
